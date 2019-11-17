@@ -1,0 +1,75 @@
+Функционал: Проверка значений параметров
+
+Аннотоция @P означает приоритезацию
+Аннотоция @auto означает что тест автоматизирован
+Аннотоция @manual означает что тест ручной
+
+Примечания:
+Документация - https://yandex.ru/dev/weather/doc/dg/concepts/forecast-info-docpage/
+Для выполнения тестов необходимо использовать Postman либо аналогичную программу
+В заголовок при отправке поместить:
+X-Yandex-API-Key: b4e803b7-75b1-4c74-be66-a578582d1290
+
+Ограничения:
+Через браузер попытка отправки запроса невозможна
+
+@P3
+@auto
+@positive
+Сценарий: Проверка граничных значений для lon
+    1. Совершить переход по урлу https://api.weather.yandex.ru/v1/forecast? с параметрами:
+        1. lon=-181.998
+        2. lon=181.5674
+    2. Проверить что поле "url" равно "https://yandex.ru/pogoda/moscow"
+
+@P3
+@auto
+@positive
+Сценарий: Проверка граничных значений для lat
+    1. Совершить переход по урлу https://api.weather.yandex.ru/v1/forecast? с параметрами:
+        1. lon=-91.998
+        2. lon=91.5674
+    2. Проверить что поле "url" равно "https://yandex.ru/pogoda/moscow"
+
+@P3
+@auto
+@positive
+Сценарий: Проверка граничных значений для limit
+    1. Совершить переход по урлу https://api.weather.yandex.ru/v1/forecast? с параметрами:
+        1. limit=0
+        2. limit=8
+    2. Проверить что в массиве "forecast" 7 элементов (день)
+
+@P3
+@auto
+@positive
+Сценарий: Проверка значений параметра lang
+    1. Совершить переход по урлу https://api.weather.yandex.ru/v1/forecast? с параметрами:
+        1. lang=ru_RU
+        2. lang=ru_UA
+        3. lang=uk_UA
+        4. lang=be_BY
+        5. lang=kk_KZ
+    2. Проверить что поле "url" равно
+        1. "https://yandex.ru/pogoda/moscow"
+        1. "https://yandex.ua/pogoda/moscow"
+        1. "https://yandex.ua/pogoda/moscow"
+        1. "https://yandex.by/pogoda/moscow"
+        1. "https://yandex.kz/pogoda/moscow"
+
+@P3
+@auto
+@positive
+Сценарий: Проверка Турецкой доменной зоны
+    1. Совершить переход по урлу https://api.weather.yandex.ru/v1/forecast? с параметрами:
+        1. lang=tr_TR
+    2. Проверить что поле "url" равно
+        1. "https://yandex.com.tr/hava/moscow"
+
+@P3
+@auto
+@positive
+Сценарий: Запрос с параметрами hours и extra
+     1. Совершить переход по урлу https://api.weather.yandex.ru/v1/forecast
+     2. Проверить что в массиве "hours" 24 элемента (часы)
+     3. Проверить что в массиве "parts" в любом времени суток отсутствуют 2 поле (prec_type, prec_strength)

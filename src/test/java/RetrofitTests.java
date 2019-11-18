@@ -94,7 +94,7 @@ class RetrofitTests {
         data.put("limit", "test");
         final Call<Weather> ownerCall = service.forecastWithParams(data);
         final Weather weather = ownerCall.execute().body();
-        Assertions.assertEquals("https://yandex.ru/pogoda/moscow", weather.info.url);
+        Assertions.assertEquals("https://yandex.com/pogoda/moscow", weather.info.url);
         // Количество дней
         Assertions.assertEquals(7, weather.forecasts.size());
         // Количество прогнозов по времени суток

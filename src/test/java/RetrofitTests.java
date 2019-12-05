@@ -1,7 +1,7 @@
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
+import generators.CountryGenerator;
 import io.qameta.allure.okhttp3.AllureOkHttp3;
 import model.Weather;
 import okhttp3.OkHttpClient;
@@ -22,9 +22,10 @@ import service.ApiService;
 @DisplayName("Retrofit Tests")
 class RetrofitTests {
     private ApiService service;
+    private CountryGenerator countryGenerator = new CountryGenerator();
 
     @BeforeAll
-    void setUpApiClient() {
+    public void setUpApiClient() {
         final AllureOkHttp3 allureOkHttp3 = new AllureOkHttp3();
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .addInterceptor(allureOkHttp3)
@@ -37,9 +38,14 @@ class RetrofitTests {
         service = retrofit.create(ApiService.class);
     }
 
+// ДЛЯ ЗАПУСКА РЕТРОФИТ ТЕСТОВ ОТКЛЮЧИТЬ ТАСКУ В build.gradle
+// test {
+//    useJUnit()
+//}
     @Test
     @DisplayName("Получение из ответа код 200")
     void apiResponse() throws IOException {
+        System.out.println(countryGenerator.getRandomCountry());
         final Call<Weather> ownerCall = service.forecastDefault();
         Assertions.assertEquals(200, ownerCall.execute().code());
     }

@@ -25,6 +25,13 @@ dependencies {
     testImplementation("io.undertow:undertow-core:2.0.27.Final")
     testRuntimeOnly("io.qameta.allure:allure-junit5:2.13.0")
     testRuntimeOnly("org.slf4j:slf4j-simple:1.7.29")
+    compile group: 'com.jayway.jsonpath', name: 'json-path', version: '2.4.0'
+    compile 'com.pholser:junit-quickcheck-core:0.9'
+    compile 'com.pholser:junit-quickcheck-generators:0.9'
+    compile 'com.pholser:junit-quickcheck-guava:0.9'
+    testCompile group: 'org.hamcrest', name: 'java-hamcrest', version: '2.0.0.0'
+
+
 }
 
 tasks.withType(Test) {
@@ -32,5 +39,10 @@ tasks.withType(Test) {
     testLogging.showStandardStreams = true
     maxParallelForks = (int) (Runtime.runtime.availableProcessors().intdiv(2) ?: 1)
 }
+
+test {
+    useJUnit()
+}
+
 
 wrapper.gradleVersion = "5.6"

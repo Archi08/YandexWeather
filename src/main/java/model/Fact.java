@@ -18,4 +18,10 @@ public class Fact {
 
     @SerializedName("uv_index")
     public int uv_index;
+
+    @SerializedName("condition")
+    public String condition;
+
+    @SerializedName("season")
+    public String season;
 }
